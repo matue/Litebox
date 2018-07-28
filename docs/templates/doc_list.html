@@ -8,7 +8,7 @@
             <div class="col">
             <select class="form-control" name="person_id">
                 {% for p in persons %}
-                    <option value="{{ p.id }}">{{ p.first_name }} {{ p.last_name }}</option>
+                    <option value="{{ p.id }}">{{ p.user.last_name }} {{ p.user.first_name }} {{ p.middle_name }}</option>
                 {% endfor %}
             </select>
             </div>
@@ -51,11 +51,11 @@
   <tbody>
     {% for o in object_list %}
         <tr>
-            <th><a href = "/docs/{{ o.id }}">{{ o.id }}</th>
+            <th><a href = "/docs/{{ o.id }}">{{ o.id }}</a></th>
             <td>{{ o.date }}</td>
-            <td>{{ o.shop_name }}</td>
+            <td>{{ o.shop.shop_name }}</td>
             <td>{{ o.doc_type }}</td>
-            <td>{{ o.person }}</td>
+            <td>{{ o.person.user.last_name }} {{ o.person.user.first_name }} {{ o.person.middle_name }} </td>
             <td>{{ o.created }}</td>
             <td>{{ o.updated }}</td>
         </tr>
@@ -87,7 +87,7 @@ $(document).ready(function() {
         var date = $("#date").val()
         var shop = $("#shop_id").val()
         var doctype = $("#doctype_id").val()
-        $.post( "/docs/adddoc",  {"date": date, "shop_name": shop, "doc_type": doctype, "person": "7" })
+        $.post( "/docs/adddoc",  {"date": date, "shop": shop, "doc_type": doctype, "person": {{ user.person.id }} })  # от имени текущего авторизованного пользователя
         location.reload();
     })
 })

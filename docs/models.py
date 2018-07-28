@@ -1,6 +1,8 @@
 from django.db import models
 from products.models import CommonModel, Product
 from shops.models import Shop
+from users.models import Person
+from django.contrib.auth.models import User
 
 
 class DocType(CommonModel):
@@ -17,7 +19,7 @@ class DocType(CommonModel):
 class Document(CommonModel):
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE, default=None)
     doc_type = models.ForeignKey(DocType, on_delete=models.CASCADE, default=None)
-    # person = models.ForeignKey(Person, on_delete=models.CASCADE, default='1', blank=True, null=True)
+    person = models.ForeignKey(Person, on_delete=models.CASCADE, blank=True, null=True)
     date = models.DateField('Date', default=None)
 
     def __str__(self):

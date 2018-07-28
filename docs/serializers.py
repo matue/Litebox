@@ -5,7 +5,7 @@ from .models import Document, ProductsInDoc
 class DocSerializer(serializers.ModelSerializer):
     class Meta:
         model = Document
-        fields = ('shop_name', 'doc_type', 'person', 'date')
+        fields = ('shop', 'doc_type', 'person', 'date')
 
 
 class ProductsInDocSerializer(serializers.ModelSerializer):

@@ -1,4 +1,5 @@
 {% extends "doc_list.html" %}
 {% block title %}<title>Результаты поиска</title>{% endblock %}
+  <span class="navbar-brand mb-0 h1">{% block navhead %}Документов: {% endblock %}{{ object_list.len }}</span>
 {% block createform %}
 {% endblock %}
