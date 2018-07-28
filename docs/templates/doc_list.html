@@ -1,0 +1,96 @@
+{% extends "_basic_pages.html" %}
+{% block title %}<title>Работа с документами</title>{% endblock %}
+{% block content %}
+<nav class="navbar navbar-light bg-white">
+  <span class="navbar-brand mb-0 h1">{% block navhead %}Документов: {% endblock %}{{ object_list.count }}</span>
+{% block search_form %}
+        <form class="form-row col-md-9" action ="/docs/search_results" method="post"> {% csrf_token %}
+            <div class="col">
+            <select class="form-control" name="person_id">
+                {% for p in persons %}
+                    <option value="{{ p.id }}">{{ p.first_name }} {{ p.last_name }}</option>
+                {% endfor %}
+            </select>
+            </div>
+             <div class="col">
+            <select class="form-control" name="doc_type_id">
+                {% for d in doctypes %}
+                    <option value="{{ d.id }}">{{ d.doc_type_name }}</option>
+                {% endfor %}
+            </select>
+              </div>
+            <div class="col">
+            <select class="form-control" name="shop_name">
+                {% for s in shops %}
+                    <option value="{{ s.id }}">{{ s.shop_name }}</option>
+                {% endfor %}
+            </select>
+            </div>
+            <div class="col">
+            <input type="text" class="form-control" name="begin_date" placeholder="Дата начала" value='0000-00-00'>
+            </div>
+            <div class="col">
+            <input type="text" class="form-control" name="end_date" placeholder="Дата конца" value='2020-01-01'>
+             </div>
+            <button class="btn btn-success" type="submit">Фильтр</button>
+        </form>
+{% endblock %}
+</nav>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Дата</th>
+      <th scope="col">Магазин</th>
+      <th scope="col">Тип</th>
+      <th scope="col">Кто принял</th>
+      <th scope="col">Создан</th>
+      <th scope="col">Изменен</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for o in object_list %}
+        <tr>
+            <th><a href = "/docs/{{ o.id }}">{{ o.id }}</th>
+            <td>{{ o.date }}</td>
+            <td>{{ o.shop_name }}</td>
+            <td>{{ o.doc_type }}</td>
+            <td>{{ o.person }}</td>
+            <td>{{ o.created }}</td>
+            <td>{{ o.updated }}</td>
+        </tr>
+    {% endfor %}
+
+    {% block createform %}
+ <tr>
+        <td></td>
+        <td><input type="text" class="form-control" id="date"></td>
+        <td> <select class="form-control" id="shop_id">
+            {% for s in shops %}
+                <option value="{{ s.id }}">{{ s.shop_name }}</option>
+            {% endfor %}
+        </select></td>
+         <td> <select class="form-control" id="doctype_id">
+            {% for dt in doctypes %}
+                <option value="{{ dt.id }}">{{ dt.doc_type_name }}</option>
+            {% endfor %}
+        </select></td>
+        <td><button class="btn btn-success" tabindex="-1" role="button" aria-disabled="true" id="create">Добавить</button></td>
+        <td></td>
+ </tr>
+  </tbody>
+</table>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#create").click(function()	{
+        var date = $("#date").val()
+        var shop = $("#shop_id").val()
+        var doctype = $("#doctype_id").val()
+        $.post( "/docs/adddoc",  {"date": date, "shop_name": shop, "doc_type": doctype, "person": "7" })
+        location.reload();
+    })
+})
+</script>
+    {% endblock %}
+{% endblock %}

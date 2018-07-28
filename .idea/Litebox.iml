@@ -23,7 +23,10 @@
     <option name="TEMPLATE_CONFIGURATION" value="Django" />
     <option name="TEMPLATE_FOLDERS">
       <list>
-        <option value="$MODULE_DIR$/../Litebox\templates" />
+        <option value="$MODULE_DIR$/templates" />
+        <option value="$MODULE_DIR$/products/templates" />
+        <option value="$MODULE_DIR$/shops/templates" />
+        <option value="$MODULE_DIR$/docs/templates" />
       </list>
     </option>
   </component>

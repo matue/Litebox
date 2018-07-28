@@ -1,0 +1,53 @@
+{% extends "_basic_pages.html" %}
+{% block title %}<title>Справочник магазинов</title>{% endblock %}
+{% block content %}
+<nav class="navbar navbar-light bg-white">
+  <span class="navbar-brand mb-0 h1">{% block navhead %}Магазинов: {% endblock %}{{ object_list.count }}</span>
+        <form class="form-inline my-2 my-lg-0" action ="/shops/search_results" method="post"> {% csrf_token %}
+            <input class="form-control mr-sm-2" type="text" aria-label="Поиск" name="shop_name" placeholder="Наименование">
+            <button class="btn btn-success" type="submit">Поиск</button>
+        </form>
+</nav>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Наименование</th>
+      <th scope="col">Создан</th>
+      <th scope="col">Изменен</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for o in object_list %}
+    <tr>
+        <th scope="row">{{ o.id }}</th>
+            <td>{{ o.shop_name }}</td>
+            <td>{{ o.created }}</td>
+            <td>{{ o.updated }}</td>
+     </tr>
+{% endfor %}
+
+    {% block createform %}
+      <tr>
+        <th></th>
+            <td><input type="text" class="form-control" id="shop_name"></td>
+            <td><button class="btn btn-success" tabindex="-1" role="button" aria-disabled="true" id="create">Добавить</button></td>
+            <td></td>
+     </tr>
+  </tbody>
+</table>
+{% endblock %}
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#create").click(function()	{
+            var shop_name = $("#shop_name").val()
+            $.post( "/shops/create",  {"shop_name": shop_name})
+            location.reload();
+        })
+    })
+</script>
+
+{% endblock %}
+
+

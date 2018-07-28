@@ -1,0 +1,63 @@
+{% extends "_basic_pages.html" %}
+{% block title %}<title>Справочник товаров</title>{% endblock %}
+{% block content %}
+<nav class="navbar navbar-light bg-white">
+  <span class="navbar-brand mb-0 h1">{% block navhead %}Товаров: {% endblock %}{{ object_list.count }}</span>
+        <form class="form-inline my-2 my-lg-0" action ="/products/search_results" method="post"> {% csrf_token %}
+            <input class="form-control mr-sm-2" type="text" aria-label="Поиск" name="product_name" placeholder="Наименование">
+            <button class="btn btn-success" type="submit">Поиск</button>
+        </form>
+</nav>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Наименование</th>
+      <th scope="col">Единица измерения</th>
+      <th scope="col">Штрихкод</th>
+      <th scope="col">Дата добавления</th>
+      <th scope="col">Дата изменения</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for o in object_list %}
+    <tr>
+        <th scope="row">{{ o.id }}</th>
+            <td>{{ o.product_name }}</td>
+            <td>{{ o.measure }}</td>
+            <td>{{ o.barcode }}</td>
+            <td>{{ o.created }}</td>
+            <td>{{ o.updated }}</td>
+     </tr>
+
+{% endfor %}
+{% block createform %}
+      <tr>
+        <th></th>
+            <td><input type="text" class="form-control" id="product_name"></td>
+            <td> <select class="form-control" id="measure">
+                {% for m in measures %}
+                    <option value="{{ m.id }}">{{ m }}</option>
+                {% endfor %}
+                </select></td>
+            <td> <input type="text" class="form-control" id="barcode"></td>
+            <td><button class="btn btn-success" tabindex="-1" role="button" aria-disabled="true" id="create">Добавить</button></td>
+            <td></td>
+     </tr>
+  </tbody>
+</table>
+{% endblock %}
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#create").click(function()	{
+            var product_name = $("#product_name").val()
+            var measure = $("#measure").val()
+            var barcode = $("#barcode").val()
+            $.post( "/products/create",  {"product_name": product_name, "measure": measure, "barcode": barcode})
+            location.reload();
+        })
+    })
+</script>
+
+{% endblock %}

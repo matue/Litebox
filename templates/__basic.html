@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/signin.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <script src="{% static "jquery-3.3.1.min.js" %}"></script>
+</head>
+{% block title %}
+    <title>Страница авторизации</title>
+{% endblock %}
+<body>
+    {% block nav %}
+    {% endblock %}
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+</body>
+</html>
