@@ -5,7 +5,16 @@
 * [python 3.6](https://www.python.org/downloads/release/python-360/)
 
 ## Шаги:
-# Шаги:
+### Восстановление БД из дампа:
+
+Восстановление происходит утилитой psql.
+Пример:
+
+```
+C:\Program Files\PostgreSQL\10\bin>psql.exe --host "localhost" --port "5432" -d Litebox -U django -f "D:\\Litebox.sql"
+```
+В качестве владельца указан пользователь django.
+
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
