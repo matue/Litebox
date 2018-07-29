@@ -13,7 +13,7 @@
 Пример:
 
 ```
-psql.exe --host "localhost" --port "5432" -d Litebox -U django -f "D:\\Litebox.sql"
+psql.exe --host "localhost" --port "5432" -d Litebox -U django -f "D:\\Litebox.dumb"
 ```
 В качестве владельца указан пользователь django.
 
