@@ -1,9 +1,11 @@
 ## Необходимое ПО:
 
 * [PostgreSQL 10](https://www.postgresql.org/download/windows/)
-* [python 3.6](https://www.python.org/downloads/release/python-360/)
 * [pgAdmin 4 v3.1](https://www.pgadmin.org/download/pgadmin-4-windows/)
+* [python 3.6](https://www.python.org/downloads/release/python-360/)
 
+## Шаги:
+# Шаги:
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
