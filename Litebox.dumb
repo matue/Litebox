@@ -1,0 +1,1830 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 10.4
+-- Dumped by pg_dump version 10.4
+
+-- Started on 2018-07-29 17:20:51
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 3029 (class 1262 OID 25779)
+-- Name: Litebox; Type: DATABASE; Schema: -; Owner: django
+--
+
+CREATE DATABASE "Litebox" WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'Russian_Russia.1251' LC_CTYPE = 'Russian_Russia.1251';
+
+
+ALTER DATABASE "Litebox" OWNER TO django;
+
+\connect "Litebox"
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 1 (class 3079 OID 12924)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 3031 (class 0 OID 0)
+-- Dependencies: 1
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 203 (class 1259 OID 25811)
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: django
+--
+
+CREATE TABLE public.auth_group (
+    id integer NOT NULL,
+    name character varying(80) NOT NULL
+);
+
+
+ALTER TABLE public.auth_group OWNER TO django;
+
+--
+-- TOC entry 202 (class 1259 OID 25809)
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE public.auth_group_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_id_seq OWNER TO django;
+
+--
+-- TOC entry 3032 (class 0 OID 0)
+-- Dependencies: 202
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE public.auth_group_id_seq OWNED BY public.auth_group.id;
+
+
+--
+-- TOC entry 205 (class 1259 OID 25821)
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: django
+--
+
+CREATE TABLE public.auth_group_permissions (
+    id integer NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_group_permissions OWNER TO django;
+
+--
+-- TOC entry 204 (class 1259 OID 25819)
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE public.auth_group_permissions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_permissions_id_seq OWNER TO django;
+
+--
+-- TOC entry 3033 (class 0 OID 0)
+-- Dependencies: 204
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE public.auth_group_permissions_id_seq OWNED BY public.auth_group_permissions.id;
+
+
+--
+-- TOC entry 201 (class 1259 OID 25803)
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: django
+--
+
+CREATE TABLE public.auth_permission (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.auth_permission OWNER TO django;
+
+--
+-- TOC entry 200 (class 1259 OID 25801)
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE public.auth_permission_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_permission_id_seq OWNER TO django;
+
+--
+-- TOC entry 3034 (class 0 OID 0)
+-- Dependencies: 200
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE public.auth_permission_id_seq OWNED BY public.auth_permission.id;
+
+
+--
+-- TOC entry 207 (class 1259 OID 25829)
+-- Name: auth_user; Type: TABLE; Schema: public; Owner: django
+--
+
+CREATE TABLE public.auth_user (
+    id integer NOT NULL,
+    password character varying(128) NOT NULL,
+    last_login timestamp with time zone,
+    is_superuser boolean NOT NULL,
+    username character varying(150) NOT NULL,
+    first_name character varying(30) NOT NULL,
+    last_name character varying(150) NOT NULL,
+    email character varying(254) NOT NULL,
+    is_staff boolean NOT NULL,
+    is_active boolean NOT NULL,
+    date_joined timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.auth_user OWNER TO django;
+
+--
+-- TOC entry 209 (class 1259 OID 25839)
+-- Name: auth_user_groups; Type: TABLE; Schema: public; Owner: django
+--
+
+CREATE TABLE public.auth_user_groups (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_groups OWNER TO django;
+
+--
+-- TOC entry 208 (class 1259 OID 25837)
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE public.auth_user_groups_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_groups_id_seq OWNER TO django;
+
+--
+-- TOC entry 3035 (class 0 OID 0)
+-- Dependencies: 208
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE public.auth_user_groups_id_seq OWNED BY public.auth_user_groups.id;
+
+
+--
+-- TOC entry 206 (class 1259 OID 25827)
+-- Name: auth_user_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE public.auth_user_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_id_seq OWNER TO django;
+
+--
+-- TOC entry 3036 (class 0 OID 0)
+-- Dependencies: 206
+-- Name: auth_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE public.auth_user_id_seq OWNED BY public.auth_user.id;
+
+
+--
+-- TOC entry 211 (class 1259 OID 25847)
+-- Name: auth_user_user_permissions; Type: TABLE; Schema: public; Owner: django
+--
+
+CREATE TABLE public.auth_user_user_permissions (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_user_permissions OWNER TO django;
+
+--
+-- TOC entry 210 (class 1259 OID 25845)
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE public.auth_user_user_permissions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_user_permissions_id_seq OWNER TO django;
+
+--
+-- TOC entry 3037 (class 0 OID 0)
+-- Dependencies: 210
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE public.auth_user_user_permissions_id_seq OWNED BY public.auth_user_user_permissions.id;
+
+
+--
+-- TOC entry 213 (class 1259 OID 25907)
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: django
+--
+
+CREATE TABLE public.django_admin_log (
+    id integer NOT NULL,
+    action_time timestamp with time zone NOT NULL,
+    object_id text,
+    object_repr character varying(200) NOT NULL,
+    action_flag smallint NOT NULL,
+    change_message text NOT NULL,
+    content_type_id integer,
+    user_id integer NOT NULL,
+    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+);
+
+
+ALTER TABLE public.django_admin_log OWNER TO django;
+
+--
+-- TOC entry 212 (class 1259 OID 25905)
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE public.django_admin_log_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_admin_log_id_seq OWNER TO django;
+
+--
+-- TOC entry 3038 (class 0 OID 0)
+-- Dependencies: 212
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE public.django_admin_log_id_seq OWNED BY public.django_admin_log.id;
+
+
+--
+-- TOC entry 199 (class 1259 OID 25793)
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: django
+--
+
+CREATE TABLE public.django_content_type (
+    id integer NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.django_content_type OWNER TO django;
+
+--
+-- TOC entry 198 (class 1259 OID 25791)
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE public.django_content_type_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_content_type_id_seq OWNER TO django;
+
+--
+-- TOC entry 3039 (class 0 OID 0)
+-- Dependencies: 198
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE public.django_content_type_id_seq OWNED BY public.django_content_type.id;
+
+
+--
+-- TOC entry 197 (class 1259 OID 25782)
+-- Name: django_migrations; Type: TABLE; Schema: public; Owner: django
+--
+
+CREATE TABLE public.django_migrations (
+    id integer NOT NULL,
+    app character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    applied timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_migrations OWNER TO django;
+
+--
+-- TOC entry 196 (class 1259 OID 25780)
+-- Name: django_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE public.django_migrations_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_migrations_id_seq OWNER TO django;
+
+--
+-- TOC entry 3040 (class 0 OID 0)
+-- Dependencies: 196
+-- Name: django_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE public.django_migrations_id_seq OWNED BY public.django_migrations.id;
+
+
+--
+-- TOC entry 214 (class 1259 OID 25935)
+-- Name: django_session; Type: TABLE; Schema: public; Owner: django
+--
+
+CREATE TABLE public.django_session (
+    session_key character varying(40) NOT NULL,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_session OWNER TO django;
+
+--
+-- TOC entry 222 (class 1259 OID 25978)
+-- Name: docs_doctype; Type: TABLE; Schema: public; Owner: django
+--
+
+CREATE TABLE public.docs_doctype (
+    id integer NOT NULL,
+    created timestamp with time zone NOT NULL,
+    updated timestamp with time zone NOT NULL,
+    doc_type_name character varying(30) NOT NULL
+);
+
+
+ALTER TABLE public.docs_doctype OWNER TO django;
+
+--
+-- TOC entry 221 (class 1259 OID 25976)
+-- Name: docs_doctype_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE public.docs_doctype_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.docs_doctype_id_seq OWNER TO django;
+
+--
+-- TOC entry 3041 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: docs_doctype_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE public.docs_doctype_id_seq OWNED BY public.docs_doctype.id;
+
+
+--
+-- TOC entry 224 (class 1259 OID 25986)
+-- Name: docs_document; Type: TABLE; Schema: public; Owner: django
+--
+
+CREATE TABLE public.docs_document (
+    id integer NOT NULL,
+    created timestamp with time zone NOT NULL,
+    updated timestamp with time zone NOT NULL,
+    date date NOT NULL,
+    doc_type_id integer NOT NULL,
+    shop_id integer NOT NULL,
+    person_id integer
+);
+
+
+ALTER TABLE public.docs_document OWNER TO django;
+
+--
+-- TOC entry 223 (class 1259 OID 25984)
+-- Name: docs_document_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE public.docs_document_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.docs_document_id_seq OWNER TO django;
+
+--
+-- TOC entry 3042 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: docs_document_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE public.docs_document_id_seq OWNED BY public.docs_document.id;
+
+
+--
+-- TOC entry 226 (class 1259 OID 25994)
+-- Name: docs_productsindoc; Type: TABLE; Schema: public; Owner: django
+--
+
+CREATE TABLE public.docs_productsindoc (
+    id integer NOT NULL,
+    created timestamp with time zone NOT NULL,
+    updated timestamp with time zone NOT NULL,
+    amount integer NOT NULL,
+    document_id integer NOT NULL,
+    product_id integer NOT NULL
+);
+
+
+ALTER TABLE public.docs_productsindoc OWNER TO django;
+
+--
+-- TOC entry 225 (class 1259 OID 25992)
+-- Name: docs_productsindoc_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE public.docs_productsindoc_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.docs_productsindoc_id_seq OWNER TO django;
+
+--
+-- TOC entry 3043 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: docs_productsindoc_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE public.docs_productsindoc_id_seq OWNED BY public.docs_productsindoc.id;
+
+
+--
+-- TOC entry 216 (class 1259 OID 25947)
+-- Name: products_measure; Type: TABLE; Schema: public; Owner: django
+--
+
+CREATE TABLE public.products_measure (
+    id integer NOT NULL,
+    created timestamp with time zone NOT NULL,
+    updated timestamp with time zone NOT NULL,
+    measure_name character varying(10) NOT NULL
+);
+
+
+ALTER TABLE public.products_measure OWNER TO django;
+
+--
+-- TOC entry 215 (class 1259 OID 25945)
+-- Name: products_measure_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE public.products_measure_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.products_measure_id_seq OWNER TO django;
+
+--
+-- TOC entry 3044 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: products_measure_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE public.products_measure_id_seq OWNED BY public.products_measure.id;
+
+
+--
+-- TOC entry 218 (class 1259 OID 25955)
+-- Name: products_product; Type: TABLE; Schema: public; Owner: django
+--
+
+CREATE TABLE public.products_product (
+    id integer NOT NULL,
+    created timestamp with time zone NOT NULL,
+    updated timestamp with time zone NOT NULL,
+    product_name character varying(100) NOT NULL,
+    barcode character varying(20) NOT NULL,
+    measure_id integer NOT NULL
+);
+
+
+ALTER TABLE public.products_product OWNER TO django;
+
+--
+-- TOC entry 217 (class 1259 OID 25953)
+-- Name: products_product_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE public.products_product_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.products_product_id_seq OWNER TO django;
+
+--
+-- TOC entry 3045 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: products_product_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE public.products_product_id_seq OWNED BY public.products_product.id;
+
+
+--
+-- TOC entry 220 (class 1259 OID 25970)
+-- Name: shops_shop; Type: TABLE; Schema: public; Owner: django
+--
+
+CREATE TABLE public.shops_shop (
+    id integer NOT NULL,
+    created timestamp with time zone NOT NULL,
+    updated timestamp with time zone NOT NULL,
+    shop_name character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.shops_shop OWNER TO django;
+
+--
+-- TOC entry 219 (class 1259 OID 25968)
+-- Name: shops_shop_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE public.shops_shop_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.shops_shop_id_seq OWNER TO django;
+
+--
+-- TOC entry 3046 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: shops_shop_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE public.shops_shop_id_seq OWNED BY public.shops_shop.id;
+
+
+--
+-- TOC entry 228 (class 1259 OID 26026)
+-- Name: users_person; Type: TABLE; Schema: public; Owner: django
+--
+
+CREATE TABLE public.users_person (
+    id integer NOT NULL,
+    middle_name character varying(30) NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.users_person OWNER TO django;
+
+--
+-- TOC entry 227 (class 1259 OID 26024)
+-- Name: users_person_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE public.users_person_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_person_id_seq OWNER TO django;
+
+--
+-- TOC entry 3047 (class 0 OID 0)
+-- Dependencies: 227
+-- Name: users_person_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE public.users_person_id_seq OWNED BY public.users_person.id;
+
+
+--
+-- TOC entry 2771 (class 2604 OID 25814)
+-- Name: auth_group id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.auth_group ALTER COLUMN id SET DEFAULT nextval('public.auth_group_id_seq'::regclass);
+
+
+--
+-- TOC entry 2772 (class 2604 OID 25824)
+-- Name: auth_group_permissions id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('public.auth_group_permissions_id_seq'::regclass);
+
+
+--
+-- TOC entry 2770 (class 2604 OID 25806)
+-- Name: auth_permission id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.auth_permission ALTER COLUMN id SET DEFAULT nextval('public.auth_permission_id_seq'::regclass);
+
+
+--
+-- TOC entry 2773 (class 2604 OID 25832)
+-- Name: auth_user id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.auth_user ALTER COLUMN id SET DEFAULT nextval('public.auth_user_id_seq'::regclass);
+
+
+--
+-- TOC entry 2774 (class 2604 OID 25842)
+-- Name: auth_user_groups id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.auth_user_groups ALTER COLUMN id SET DEFAULT nextval('public.auth_user_groups_id_seq'::regclass);
+
+
+--
+-- TOC entry 2775 (class 2604 OID 25850)
+-- Name: auth_user_user_permissions id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions ALTER COLUMN id SET DEFAULT nextval('public.auth_user_user_permissions_id_seq'::regclass);
+
+
+--
+-- TOC entry 2776 (class 2604 OID 25910)
+-- Name: django_admin_log id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.django_admin_log ALTER COLUMN id SET DEFAULT nextval('public.django_admin_log_id_seq'::regclass);
+
+
+--
+-- TOC entry 2769 (class 2604 OID 25796)
+-- Name: django_content_type id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.django_content_type ALTER COLUMN id SET DEFAULT nextval('public.django_content_type_id_seq'::regclass);
+
+
+--
+-- TOC entry 2768 (class 2604 OID 25785)
+-- Name: django_migrations id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.django_migrations ALTER COLUMN id SET DEFAULT nextval('public.django_migrations_id_seq'::regclass);
+
+
+--
+-- TOC entry 2781 (class 2604 OID 25981)
+-- Name: docs_doctype id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.docs_doctype ALTER COLUMN id SET DEFAULT nextval('public.docs_doctype_id_seq'::regclass);
+
+
+--
+-- TOC entry 2782 (class 2604 OID 25989)
+-- Name: docs_document id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.docs_document ALTER COLUMN id SET DEFAULT nextval('public.docs_document_id_seq'::regclass);
+
+
+--
+-- TOC entry 2783 (class 2604 OID 25997)
+-- Name: docs_productsindoc id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.docs_productsindoc ALTER COLUMN id SET DEFAULT nextval('public.docs_productsindoc_id_seq'::regclass);
+
+
+--
+-- TOC entry 2778 (class 2604 OID 25950)
+-- Name: products_measure id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.products_measure ALTER COLUMN id SET DEFAULT nextval('public.products_measure_id_seq'::regclass);
+
+
+--
+-- TOC entry 2779 (class 2604 OID 25958)
+-- Name: products_product id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.products_product ALTER COLUMN id SET DEFAULT nextval('public.products_product_id_seq'::regclass);
+
+
+--
+-- TOC entry 2780 (class 2604 OID 25973)
+-- Name: shops_shop id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.shops_shop ALTER COLUMN id SET DEFAULT nextval('public.shops_shop_id_seq'::regclass);
+
+
+--
+-- TOC entry 2784 (class 2604 OID 26029)
+-- Name: users_person id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.users_person ALTER COLUMN id SET DEFAULT nextval('public.users_person_id_seq'::regclass);
+
+
+--
+-- TOC entry 2998 (class 0 OID 25811)
+-- Dependencies: 203
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+
+
+--
+-- TOC entry 3000 (class 0 OID 25821)
+-- Dependencies: 205
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+
+
+--
+-- TOC entry 2996 (class 0 OID 25803)
+-- Dependencies: 201
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (1, 'Can add log entry', 1, 'add_logentry');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (2, 'Can change log entry', 1, 'change_logentry');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (3, 'Can delete log entry', 1, 'delete_logentry');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (4, 'Can add permission', 2, 'add_permission');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (5, 'Can change permission', 2, 'change_permission');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (6, 'Can delete permission', 2, 'delete_permission');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (7, 'Can add group', 3, 'add_group');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (8, 'Can change group', 3, 'change_group');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (9, 'Can delete group', 3, 'delete_group');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (10, 'Can add user', 4, 'add_user');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (11, 'Can change user', 4, 'change_user');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (12, 'Can delete user', 4, 'delete_user');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (13, 'Can add content type', 5, 'add_contenttype');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (14, 'Can change content type', 5, 'change_contenttype');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (15, 'Can delete content type', 5, 'delete_contenttype');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (16, 'Can add session', 6, 'add_session');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (17, 'Can change session', 6, 'change_session');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (18, 'Can delete session', 6, 'delete_session');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (19, 'Can add Продукт', 7, 'add_product');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (20, 'Can change Продукт', 7, 'change_product');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (21, 'Can delete Продукт', 7, 'delete_product');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (22, 'Can add Единица измерения', 8, 'add_measure');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (23, 'Can change Единица измерения', 8, 'change_measure');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (24, 'Can delete Единица измерения', 8, 'delete_measure');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (25, 'Can add Магазин', 9, 'add_shop');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (26, 'Can change Магазин', 9, 'change_shop');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (27, 'Can delete Магазин', 9, 'delete_shop');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (28, 'Can add Запись в документе', 10, 'add_productsindoc');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (29, 'Can change Запись в документе', 10, 'change_productsindoc');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (30, 'Can delete Запись в документе', 10, 'delete_productsindoc');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (31, 'Can add Тип документа', 11, 'add_doctype');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (32, 'Can change Тип документа', 11, 'change_doctype');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (33, 'Can delete Тип документа', 11, 'delete_doctype');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (34, 'Can add Документ', 12, 'add_document');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (35, 'Can change Документ', 12, 'change_document');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (36, 'Can delete Документ', 12, 'delete_document');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (37, 'Can add Пользователь', 13, 'add_person');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (38, 'Can change Пользователь', 13, 'change_person');
+INSERT INTO public.auth_permission (id, name, content_type_id, codename) VALUES (39, 'Can delete Пользователь', 13, 'delete_person');
+
+
+--
+-- TOC entry 3002 (class 0 OID 25829)
+-- Dependencies: 207
+-- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+INSERT INTO public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) VALUES (4, 'pbkdf2_sha256$100000$qhHG10x96267$dbz+fswicQuVpspf/TuDvQT0nDQppldd/fl6IQV91oQ=', '2018-07-29 09:53:32.711594+00', false, 'nikita', 'Никита', 'Серебренников', 'nik.matue@gmail.com', false, true, '2018-07-28 19:49:32+00');
+INSERT INTO public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) VALUES (5, 'pbkdf2_sha256$100000$Yq2ohZdTJFv0$hmuuarmnxWYVkJIzFsnCNS8QhmvtCl/wK2vHSZkzYRs=', '2018-07-29 09:57:51.955447+00', false, 'semen', 'Семен', 'Сафронов', '', false, true, '2018-07-28 19:49:50+00');
+INSERT INTO public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) VALUES (1, 'pbkdf2_sha256$100000$TMgBgjkiMoLE$KXjHhXniumBdJh0N1a7vmReatG4EIbsEJeXzdg/eBpQ=', '2018-07-29 10:00:06.944379+00', true, 'admin', '', '', '', true, true, '2018-07-28 14:50:29.532749+00');
+INSERT INTO public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) VALUES (6, 'pbkdf2_sha256$100000$9UEqxKnxh9VW$J4nO9e8SfafVX8VglOcPCfUxQG3M6Bxv60aEoTEcrIA=', '2018-07-29 10:01:11+00', false, 'viktor', 'Виктор', 'Сафронов', '', false, true, '2018-07-29 10:01:12+00');
+
+
+--
+-- TOC entry 3004 (class 0 OID 25839)
+-- Dependencies: 209
+-- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+
+
+--
+-- TOC entry 3006 (class 0 OID 25847)
+-- Dependencies: 211
+-- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+
+
+--
+-- TOC entry 3008 (class 0 OID 25907)
+-- Dependencies: 213
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (1, '2018-07-28 14:53:27.021869+00', '1', 'Штука', 1, '[{"added": {}}]', 8, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (2, '2018-07-28 14:53:37.201677+00', '1', 'Молоко "Домик в деревне"', 1, '[{"added": {}}]', 7, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (3, '2018-07-28 14:53:47.106004+00', '2', 'Хлеб', 1, '[{"added": {}}]', 7, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (4, '2018-07-28 15:06:48.45413+00', '1', 'Лента', 1, '[{"added": {}}]', 9, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (5, '2018-07-28 15:06:53.387053+00', '2', 'Монетка', 1, '[{"added": {}}]', 9, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (6, '2018-07-28 15:06:57.311001+00', '3', 'Магнит', 1, '[{"added": {}}]', 9, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (7, '2018-07-28 15:07:02.909587+00', '4', 'Пятерочка', 1, '[{"added": {}}]', 9, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (8, '2018-07-28 15:16:51.350752+00', '1', 'Накладная', 1, '[{"added": {}}]', 11, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (9, '2018-07-28 15:16:54.978573+00', '2', 'Счет - фактура', 1, '[{"added": {}}]', 11, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (10, '2018-07-28 15:18:45.118667+00', '2', 'Дата: 2018-07-28, Магазин: Лента', 1, '[{"added": {}}, {"added": {"name": "\u0417\u0430\u043f\u0438\u0441\u044c \u0432 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0435", "object": "\u041f\u0440\u043e\u0434\u0443\u043a\u0442: \u041c\u043e\u043b\u043e\u043a\u043e \"\u0414\u043e\u043c\u0438\u043a \u0432 \u0434\u0435\u0440\u0435\u0432\u043d\u0435\", \u0414\u043e\u043a\u0443\u043c\u0435\u043d\u0442: \u0414\u0430\u0442\u0430: 2018-07-28, \u041c\u0430\u0433\u0430\u0437\u0438\u043d: \u041b\u0435\u043d\u0442\u0430"}}]', 12, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (11, '2018-07-28 16:01:59.304397+00', '2', 'nikita', 1, '[{"added": {}}]', 4, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (12, '2018-07-28 16:02:07.277499+00', '2', 'nikita', 2, '[{"changed": {"fields": ["first_name", "last_name", "email", "last_login"]}}]', 4, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (13, '2018-07-28 16:02:17.597144+00', '1', 'Серебренников Никита Владимирович', 1, '[{"added": {}}]', 13, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (14, '2018-07-28 16:05:44.585658+00', '2', 'Дата: 2018-07-28, Магазин: Монетка', 2, '[{"changed": {"fields": ["shop"]}}]', 12, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (15, '2018-07-28 16:07:46.189335+00', '2', 'Дата: 2018-07-28, Магазин: Монетка', 2, '[]', 12, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (16, '2018-07-28 18:25:30.454935+00', '3', 'Person object (3)', 1, '[{"added": {}}]', 13, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (17, '2018-07-28 18:28:20.170695+00', '6', 'Дата: 2018-07-28, Магазин: Лента', 1, '[{"added": {}}, {"added": {"name": "\u0417\u0430\u043f\u0438\u0441\u044c \u0432 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0435", "object": "\u041f\u0440\u043e\u0434\u0443\u043a\u0442: \u041a\u0432\u0430\u0441, \u0414\u043e\u043a\u0443\u043c\u0435\u043d\u0442: \u041d\u0430\u043a\u043b\u0430\u0434\u043d\u0430\u044f"}}]', 12, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (18, '2018-07-28 18:28:33.613492+00', '7', 'Дата: 2018-07-28, Магазин: Пятерочка', 1, '[{"added": {}}, {"added": {"name": "\u0417\u0430\u043f\u0438\u0441\u044c \u0432 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0435", "object": "\u041f\u0440\u043e\u0434\u0443\u043a\u0442: \u0425\u043b\u0435\u0431, \u0414\u043e\u043a\u0443\u043c\u0435\u043d\u0442: \u0421\u0447\u0435\u0442 - \u0444\u0430\u043a\u0442\u0443\u0440\u0430"}}]', 12, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (19, '2018-07-28 18:33:14.742452+00', '3', 'semen', 1, '[{"added": {}}]', 4, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (20, '2018-07-28 18:33:30.923492+00', '3', 'semen', 2, '[{"changed": {"fields": ["first_name", "last_name", "last_login"]}}]', 4, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (21, '2018-07-28 18:33:43.187576+00', '4', 'Сафронов Семен Владимирович', 1, '[{"added": {}}]', 13, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (22, '2018-07-28 18:59:32.16832+00', '5', 'Серебренников Никита Владимирович', 1, '[{"added": {}}]', 13, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (23, '2018-07-28 18:59:35.083011+00', '5', 'Серебренников Никита Владимирович', 2, '[]', 13, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (24, '2018-07-28 18:59:42.493027+00', '6', 'Сафронов Семен Владимирович', 1, '[{"added": {}}]', 13, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (25, '2018-07-28 19:01:05.382149+00', '10', 'Дата: 2018-07-28, Магазин: Лента', 1, '[{"added": {}}, {"added": {"name": "\u0417\u0430\u043f\u0438\u0441\u044c \u0432 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0435", "object": "\u041f\u0440\u043e\u0434\u0443\u043a\u0442: \u041c\u043e\u043b\u043e\u043a\u043e \"\u0414\u043e\u043c\u0438\u043a \u0432 \u0434\u0435\u0440\u0435\u0432\u043d\u0435\", \u0414\u043e\u043a\u0443\u043c\u0435\u043d\u0442: \u0421\u0447\u0435\u0442 - \u0444\u0430\u043a\u0442\u0443\u0440\u0430"}}]', 12, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (26, '2018-07-28 19:01:19.233158+00', '11', 'Дата: 2018-07-28, Магазин: Магнит', 1, '[{"added": {}}, {"added": {"name": "\u0417\u0430\u043f\u0438\u0441\u044c \u0432 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0435", "object": "\u041f\u0440\u043e\u0434\u0443\u043a\u0442: \u041c\u043e\u043b\u043e\u043a\u043e \"\u0414\u043e\u043c\u0438\u043a \u0432 \u0434\u0435\u0440\u0435\u0432\u043d\u0435\", \u0414\u043e\u043a\u0443\u043c\u0435\u043d\u0442: \u0421\u0447\u0435\u0442 - \u0444\u0430\u043a\u0442\u0443\u0440\u0430"}}]', 12, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (27, '2018-07-28 19:48:41.745436+00', '2', 'nikita', 3, '', 4, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (28, '2018-07-28 19:48:41.748427+00', '3', 'semen', 3, '', 4, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (29, '2018-07-28 19:49:33.148619+00', '4', 'nikita', 1, '[{"added": {}}]', 4, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (30, '2018-07-28 19:49:39.140744+00', '4', 'nikita', 2, '[{"changed": {"fields": ["first_name", "last_name", "email", "last_login"]}}]', 4, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (31, '2018-07-28 19:49:51.114513+00', '5', 'semen', 1, '[{"added": {}}]', 4, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (32, '2018-07-28 19:50:04.623536+00', '5', 'semen', 2, '[{"changed": {"fields": ["first_name", "last_name", "last_login"]}}]', 4, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (33, '2018-07-28 19:50:14.165197+00', '7', 'Серебренников Никита Владимирович', 1, '[{"added": {}}]', 13, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (34, '2018-07-28 19:50:19.641312+00', '8', 'Сафронов Семен Владимирович', 1, '[{"added": {}}]', 13, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (35, '2018-07-28 19:50:52.620748+00', '12', 'Дата: 2018-07-28, Магазин: Лента', 1, '[{"added": {}}, {"added": {"name": "\u0417\u0430\u043f\u0438\u0441\u044c \u0432 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0435", "object": "\u041f\u0440\u043e\u0434\u0443\u043a\u0442: \u041c\u043e\u043b\u043e\u043a\u043e \"\u0414\u043e\u043c\u0438\u043a \u0432 \u0434\u0435\u0440\u0435\u0432\u043d\u0435\", \u0414\u043e\u043a\u0443\u043c\u0435\u043d\u0442: \u041d\u0430\u043a\u043b\u0430\u0434\u043d\u0430\u044f"}}]', 12, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (36, '2018-07-28 19:51:03.310352+00', '13', 'Дата: 2018-07-28, Магазин: Пятерочка', 1, '[{"added": {}}, {"added": {"name": "\u0417\u0430\u043f\u0438\u0441\u044c \u0432 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0435", "object": "\u041f\u0440\u043e\u0434\u0443\u043a\u0442: \u0425\u043b\u0435\u0431, \u0414\u043e\u043a\u0443\u043c\u0435\u043d\u0442: \u041d\u0430\u043a\u043b\u0430\u0434\u043d\u0430\u044f"}}]', 12, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (37, '2018-07-29 10:00:31.7677+00', '6', 'viktor', 1, '[{"added": {}}]', 4, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (38, '2018-07-29 10:01:13.636547+00', '6', 'viktor', 2, '[{"changed": {"fields": ["first_name", "last_name", "last_login", "date_joined"]}}]', 4, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (39, '2018-07-29 10:01:26.700994+00', '9', 'Сафронов Виктор Владимирович', 1, '[{"added": {}}]', 13, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (40, '2018-07-29 10:01:45.98451+00', '14', 'Мороженое', 1, '[{"added": {}}]', 7, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (41, '2018-07-29 10:01:56.370211+00', '15', 'Печенье', 1, '[{"added": {}}]', 7, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (42, '2018-07-29 10:02:07.87946+00', '16', 'Кукуруза', 1, '[{"added": {}}]', 7, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (43, '2018-07-29 10:02:24.686011+00', '2', 'Килограмм', 1, '[{"added": {}}]', 8, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (44, '2018-07-29 10:02:34.721066+00', '16', 'Кукуруза', 2, '[{"changed": {"fields": ["measure"]}}]', 7, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (45, '2018-07-29 10:03:14.135952+00', '19', 'Дата: 2018-07-21, Магазин: Лента', 3, '', 12, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (46, '2018-07-29 10:03:14.137948+00', '17', 'Дата: 2018-07-28, Магазин: Лента', 3, '', 12, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (47, '2018-07-29 10:03:14.138945+00', '16', 'Дата: 2018-07-28, Магазин: Лента', 3, '', 12, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (48, '2018-07-29 10:03:14.139942+00', '15', 'Дата: 2018-07-28, Магазин: Райт', 3, '', 12, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (49, '2018-07-29 10:03:14.140939+00', '14', 'Дата: 2018-07-21, Магазин: Лента', 3, '', 12, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (50, '2018-07-29 10:03:14.14393+00', '13', 'Дата: 2018-07-28, Магазин: Пятерочка', 3, '', 12, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (51, '2018-07-29 10:03:14.14493+00', '12', 'Дата: 2018-07-28, Магазин: Лента', 3, '', 12, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (52, '2018-07-29 10:03:30.622829+00', '20', 'Дата: 2018-07-29, Магазин: Лента', 1, '[{"added": {}}, {"added": {"name": "\u0417\u0430\u043f\u0438\u0441\u044c \u0432 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0435", "object": "\u041f\u0440\u043e\u0434\u0443\u043a\u0442: \u041a\u0443\u043a\u0443\u0440\u0443\u0437\u0430, \u0414\u043e\u043a\u0443\u043c\u0435\u043d\u0442: \u041d\u0430\u043a\u043b\u0430\u0434\u043d\u0430\u044f"}}, {"added": {"name": "\u0417\u0430\u043f\u0438\u0441\u044c \u0432 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0435", "object": "\u041f\u0440\u043e\u0434\u0443\u043a\u0442: \u041c\u043e\u043b\u043e\u043a\u043e, \u0414\u043e\u043a\u0443\u043c\u0435\u043d\u0442: \u041d\u0430\u043a\u043b\u0430\u0434\u043d\u0430\u044f"}}]', 12, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (53, '2018-07-29 10:03:49.047356+00', '21', 'Дата: 2018-07-21, Магазин: Монетка', 1, '[{"added": {}}, {"added": {"name": "\u0417\u0430\u043f\u0438\u0441\u044c \u0432 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0435", "object": "\u041f\u0440\u043e\u0434\u0443\u043a\u0442: \u0425\u043b\u0435\u0431, \u0414\u043e\u043a\u0443\u043c\u0435\u043d\u0442: \u0421\u0447\u0435\u0442 - \u0444\u0430\u043a\u0442\u0443\u0440\u0430"}}, {"added": {"name": "\u0417\u0430\u043f\u0438\u0441\u044c \u0432 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0435", "object": "\u041f\u0440\u043e\u0434\u0443\u043a\u0442: \u041f\u0435\u0447\u0435\u043d\u044c\u0435, \u0414\u043e\u043a\u0443\u043c\u0435\u043d\u0442: \u0421\u0447\u0435\u0442 - \u0444\u0430\u043a\u0442\u0443\u0440\u0430"}}]', 12, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (54, '2018-07-29 10:04:06.980984+00', '22', 'Дата: 2018-07-29, Магазин: Пятерочка', 1, '[{"added": {}}, {"added": {"name": "\u0417\u0430\u043f\u0438\u0441\u044c \u0432 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0435", "object": "\u041f\u0440\u043e\u0434\u0443\u043a\u0442: \u041c\u043e\u0440\u043e\u0436\u0435\u043d\u043e\u0435, \u0414\u043e\u043a\u0443\u043c\u0435\u043d\u0442: \u041d\u0430\u043a\u043b\u0430\u0434\u043d\u0430\u044f"}}, {"added": {"name": "\u0417\u0430\u043f\u0438\u0441\u044c \u0432 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0435", "object": "\u041f\u0440\u043e\u0434\u0443\u043a\u0442: \u0425\u043b\u0435\u0431, \u0414\u043e\u043a\u0443\u043c\u0435\u043d\u0442: \u041d\u0430\u043a\u043b\u0430\u0434\u043d\u0430\u044f"}}]', 12, 1);
+
+
+--
+-- TOC entry 2994 (class 0 OID 25793)
+-- Dependencies: 199
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (1, 'admin', 'logentry');
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (2, 'auth', 'permission');
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (3, 'auth', 'group');
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (4, 'auth', 'user');
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (5, 'contenttypes', 'contenttype');
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (6, 'sessions', 'session');
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (7, 'products', 'product');
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (8, 'products', 'measure');
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (9, 'shops', 'shop');
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (10, 'docs', 'productsindoc');
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (11, 'docs', 'doctype');
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (12, 'docs', 'document');
+INSERT INTO public.django_content_type (id, app_label, model) VALUES (13, 'users', 'person');
+
+
+--
+-- TOC entry 2992 (class 0 OID 25782)
+-- Dependencies: 197
+-- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (1, 'contenttypes', '0001_initial', '2018-07-28 14:46:15.785871+00');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (2, 'auth', '0001_initial', '2018-07-28 14:46:16.401767+00');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (3, 'admin', '0001_initial', '2018-07-28 14:46:16.532782+00');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (4, 'admin', '0002_logentry_remove_auto_add', '2018-07-28 14:46:16.541796+00');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (5, 'contenttypes', '0002_remove_content_type_name', '2018-07-28 14:46:16.574816+00');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (6, 'auth', '0002_alter_permission_name_max_length', '2018-07-28 14:46:16.580799+00');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (7, 'auth', '0003_alter_user_email_max_length', '2018-07-28 14:46:16.588777+00');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (8, 'auth', '0004_alter_user_username_opts', '2018-07-28 14:46:16.597755+00');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (9, 'auth', '0005_alter_user_last_login_null', '2018-07-28 14:46:16.615766+00');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (10, 'auth', '0006_require_contenttypes_0002', '2018-07-28 14:46:16.61872+00');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (11, 'auth', '0007_alter_validators_add_error_messages', '2018-07-28 14:46:16.625703+00');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (12, 'auth', '0008_alter_user_username_max_length', '2018-07-28 14:46:16.663713+00');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (13, 'auth', '0009_alter_user_last_name_max_length', '2018-07-28 14:46:16.671668+00');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (14, 'sessions', '0001_initial', '2018-07-28 14:46:16.769223+00');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (15, 'products', '0001_initial', '2018-07-28 14:51:20.4508+00');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (16, 'shops', '0001_initial', '2018-07-28 15:05:01.374395+00');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (17, 'docs', '0001_initial', '2018-07-28 15:12:26.401709+00');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (18, 'users', '0001_initial', '2018-07-28 15:59:20.510949+00');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (19, 'docs', '0002_document_person', '2018-07-28 16:07:08.338543+00');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (20, 'users', '0002_auto_20180728_2322', '2018-07-28 18:22:11.395469+00');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (21, 'users', '0003_auto_20180728_2322', '2018-07-28 18:22:53.808738+00');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (22, 'users', '0004_auto_20180728_2323', '2018-07-28 18:23:40.930399+00');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (23, 'docs', '0003_auto_20180728_2327', '2018-07-28 18:27:42.748081+00');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (24, 'docs', '0004_auto_20180728_2352', '2018-07-28 18:55:32.506816+00');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (25, 'docs', '0005_auto_20180728_2352', '2018-07-28 18:55:32.542719+00');
+INSERT INTO public.django_migrations (id, app, name, applied) VALUES (26, 'users', '0005_auto_20180729_0048', '2018-07-28 19:49:04.207023+00');
+
+
+--
+-- TOC entry 3009 (class 0 OID 25935)
+-- Dependencies: 214
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+INSERT INTO public.django_session (session_key, session_data, expire_date) VALUES ('y7v89f96dpyyjaie3i2za8na93qie92a', 'YThiNTFlNTBjZjAxZTY1ZGJmZGRhZmZmZDlkNTI3MDE2MWQ3ZjNmZDp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI0MDkzNDBlNDkyMGZlNTA0ZmU3MmRlNWZkODdlYjUyZGQ1NzdhOTg1In0=', '2018-08-12 10:00:06.946374+00');
+INSERT INTO public.django_session (session_key, session_data, expire_date) VALUES ('n9pq3p6r7y5j2oqxx0nwoqz0d1ytnmx3', 'ZTY0Yjc5N2UyODFlOWFmZGFmOGMzZjg1MzRjOWU3NTY5Y2UxZDY5Mzp7Il9hdXRoX3VzZXJfaWQiOiI1IiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhOGY2MmEyNjU0NjgxM2ZiNDk2ZDFiYTU4YjY2MDhlMTQ1NjU5ZTU3In0=', '2018-08-12 06:09:35.584411+00');
+INSERT INTO public.django_session (session_key, session_data, expire_date) VALUES ('8fwjb5odtjd5odq9egc5u1h1tbyaq6an', 'ZTY0Yjc5N2UyODFlOWFmZGFmOGMzZjg1MzRjOWU3NTY5Y2UxZDY5Mzp7Il9hdXRoX3VzZXJfaWQiOiI1IiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhOGY2MmEyNjU0NjgxM2ZiNDk2ZDFiYTU4YjY2MDhlMTQ1NjU5ZTU3In0=', '2018-08-12 09:57:51.956445+00');
+
+
+--
+-- TOC entry 3017 (class 0 OID 25978)
+-- Dependencies: 222
+-- Data for Name: docs_doctype; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+INSERT INTO public.docs_doctype (id, created, updated, doc_type_name) VALUES (1, '2018-07-28 15:16:51.348779+00', '2018-07-28 15:16:51.348779+00', 'Накладная');
+INSERT INTO public.docs_doctype (id, created, updated, doc_type_name) VALUES (2, '2018-07-28 15:16:54.977576+00', '2018-07-28 15:16:54.977576+00', 'Счет - фактура');
+
+
+--
+-- TOC entry 3019 (class 0 OID 25986)
+-- Dependencies: 224
+-- Data for Name: docs_document; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+INSERT INTO public.docs_document (id, created, updated, date, doc_type_id, shop_id, person_id) VALUES (20, '2018-07-29 10:03:30.619837+00', '2018-07-29 10:03:30.619837+00', '2018-07-29', 1, 1, 7);
+INSERT INTO public.docs_document (id, created, updated, date, doc_type_id, shop_id, person_id) VALUES (21, '2018-07-29 10:03:49.044365+00', '2018-07-29 10:03:49.044365+00', '2018-07-21', 2, 2, 8);
+INSERT INTO public.docs_document (id, created, updated, date, doc_type_id, shop_id, person_id) VALUES (22, '2018-07-29 10:04:06.978018+00', '2018-07-29 10:04:06.978018+00', '2018-07-29', 1, 4, 9);
+
+
+--
+-- TOC entry 3021 (class 0 OID 25994)
+-- Dependencies: 226
+-- Data for Name: docs_productsindoc; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+INSERT INTO public.docs_productsindoc (id, created, updated, amount, document_id, product_id) VALUES (12, '2018-07-29 10:03:30.620834+00', '2018-07-29 10:03:30.620834+00', 5, 20, 16);
+INSERT INTO public.docs_productsindoc (id, created, updated, amount, document_id, product_id) VALUES (13, '2018-07-29 10:03:30.621832+00', '2018-07-29 10:03:30.621832+00', 6, 20, 12);
+INSERT INTO public.docs_productsindoc (id, created, updated, amount, document_id, product_id) VALUES (14, '2018-07-29 10:03:49.04636+00', '2018-07-29 10:03:49.04636+00', 6, 21, 13);
+INSERT INTO public.docs_productsindoc (id, created, updated, amount, document_id, product_id) VALUES (15, '2018-07-29 10:03:49.047356+00', '2018-07-29 10:03:49.047356+00', 45, 21, 15);
+INSERT INTO public.docs_productsindoc (id, created, updated, amount, document_id, product_id) VALUES (16, '2018-07-29 10:04:06.978987+00', '2018-07-29 10:04:06.978987+00', 44, 22, 14);
+INSERT INTO public.docs_productsindoc (id, created, updated, amount, document_id, product_id) VALUES (17, '2018-07-29 10:04:06.979985+00', '2018-07-29 10:04:06.979985+00', 33, 22, 13);
+INSERT INTO public.docs_productsindoc (id, created, updated, amount, document_id, product_id) VALUES (18, '2018-07-29 10:04:36.682731+00', '2018-07-29 10:04:36.682731+00', 5, 20, 16);
+
+
+--
+-- TOC entry 3011 (class 0 OID 25947)
+-- Dependencies: 216
+-- Data for Name: products_measure; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+INSERT INTO public.products_measure (id, created, updated, measure_name) VALUES (1, '2018-07-28 14:53:27.019873+00', '2018-07-28 14:53:27.020895+00', 'Штука');
+INSERT INTO public.products_measure (id, created, updated, measure_name) VALUES (2, '2018-07-29 10:02:24.685015+00', '2018-07-29 10:02:24.685015+00', 'Килограмм');
+
+
+--
+-- TOC entry 3013 (class 0 OID 25955)
+-- Dependencies: 218
+-- Data for Name: products_product; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+INSERT INTO public.products_product (id, created, updated, product_name, barcode, measure_id) VALUES (12, '2018-07-29 09:54:21.405624+00', '2018-07-29 09:54:21.405624+00', 'Молоко', '4607096000981', 1);
+INSERT INTO public.products_product (id, created, updated, product_name, barcode, measure_id) VALUES (13, '2018-07-29 09:54:24.43798+00', '2018-07-29 09:54:24.43798+00', 'Хлеб', '4607096000981', 1);
+INSERT INTO public.products_product (id, created, updated, product_name, barcode, measure_id) VALUES (14, '2018-07-29 10:01:45.982515+00', '2018-07-29 10:01:45.983513+00', 'Мороженое', '4600949010250', 1);
+INSERT INTO public.products_product (id, created, updated, product_name, barcode, measure_id) VALUES (15, '2018-07-29 10:01:56.369213+00', '2018-07-29 10:01:56.369213+00', 'Печенье', '4600949010250', 1);
+INSERT INTO public.products_product (id, created, updated, product_name, barcode, measure_id) VALUES (16, '2018-07-29 10:02:07.878462+00', '2018-07-29 10:02:34.720068+00', 'Кукуруза', '4607096000981', 2);
+
+
+--
+-- TOC entry 3015 (class 0 OID 25970)
+-- Dependencies: 220
+-- Data for Name: shops_shop; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+INSERT INTO public.shops_shop (id, created, updated, shop_name) VALUES (1, '2018-07-28 15:06:48.453104+00', '2018-07-28 15:06:48.453104+00', 'Лента');
+INSERT INTO public.shops_shop (id, created, updated, shop_name) VALUES (2, '2018-07-28 15:06:53.386057+00', '2018-07-28 15:06:53.386057+00', 'Монетка');
+INSERT INTO public.shops_shop (id, created, updated, shop_name) VALUES (3, '2018-07-28 15:06:57.310004+00', '2018-07-28 15:06:57.310004+00', 'Магнит');
+INSERT INTO public.shops_shop (id, created, updated, shop_name) VALUES (4, '2018-07-28 15:07:02.90859+00', '2018-07-28 15:07:02.90859+00', 'Пятерочка');
+INSERT INTO public.shops_shop (id, created, updated, shop_name) VALUES (5, '2018-07-28 16:17:04.148011+00', '2018-07-28 16:17:04.148011+00', 'Райт');
+INSERT INTO public.shops_shop (id, created, updated, shop_name) VALUES (6, '2018-07-29 10:05:02.410643+00', '2018-07-29 10:05:02.410643+00', 'Перекресток');
+
+
+--
+-- TOC entry 3023 (class 0 OID 26026)
+-- Dependencies: 228
+-- Data for Name: users_person; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+INSERT INTO public.users_person (id, middle_name, user_id) VALUES (7, 'Владимирович', 4);
+INSERT INTO public.users_person (id, middle_name, user_id) VALUES (8, 'Владимирович', 5);
+INSERT INTO public.users_person (id, middle_name, user_id) VALUES (9, 'Владимирович', 6);
+
+
+--
+-- TOC entry 3048 (class 0 OID 0)
+-- Dependencies: 202
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('public.auth_group_id_seq', 1, false);
+
+
+--
+-- TOC entry 3049 (class 0 OID 0)
+-- Dependencies: 204
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('public.auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- TOC entry 3050 (class 0 OID 0)
+-- Dependencies: 200
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('public.auth_permission_id_seq', 39, true);
+
+
+--
+-- TOC entry 3051 (class 0 OID 0)
+-- Dependencies: 208
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('public.auth_user_groups_id_seq', 1, false);
+
+
+--
+-- TOC entry 3052 (class 0 OID 0)
+-- Dependencies: 206
+-- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('public.auth_user_id_seq', 6, true);
+
+
+--
+-- TOC entry 3053 (class 0 OID 0)
+-- Dependencies: 210
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
+
+
+--
+-- TOC entry 3054 (class 0 OID 0)
+-- Dependencies: 212
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 54, true);
+
+
+--
+-- TOC entry 3055 (class 0 OID 0)
+-- Dependencies: 198
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('public.django_content_type_id_seq', 13, true);
+
+
+--
+-- TOC entry 3056 (class 0 OID 0)
+-- Dependencies: 196
+-- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 26, true);
+
+
+--
+-- TOC entry 3057 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: docs_doctype_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('public.docs_doctype_id_seq', 2, true);
+
+
+--
+-- TOC entry 3058 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: docs_document_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('public.docs_document_id_seq', 22, true);
+
+
+--
+-- TOC entry 3059 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: docs_productsindoc_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('public.docs_productsindoc_id_seq', 18, true);
+
+
+--
+-- TOC entry 3060 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: products_measure_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('public.products_measure_id_seq', 2, true);
+
+
+--
+-- TOC entry 3061 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: products_product_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('public.products_product_id_seq', 16, true);
+
+
+--
+-- TOC entry 3062 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: shops_shop_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('public.shops_shop_id_seq', 6, true);
+
+
+--
+-- TOC entry 3063 (class 0 OID 0)
+-- Dependencies: 227
+-- Name: users_person_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('public.users_person_id_seq', 9, true);
+
+
+--
+-- TOC entry 2798 (class 2606 OID 25818)
+-- Name: auth_group auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- TOC entry 2803 (class 2606 OID 25873)
+-- Name: auth_group_permissions auth_group_permissions_group_id_permission_id_0cd325b0_uniq; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_permission_id_0cd325b0_uniq UNIQUE (group_id, permission_id);
+
+
+--
+-- TOC entry 2806 (class 2606 OID 25826)
+-- Name: auth_group_permissions auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2800 (class 2606 OID 25816)
+-- Name: auth_group auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2793 (class 2606 OID 25859)
+-- Name: auth_permission auth_permission_content_type_id_codename_01ab375a_uniq; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_codename_01ab375a_uniq UNIQUE (content_type_id, codename);
+
+
+--
+-- TOC entry 2795 (class 2606 OID 25808)
+-- Name: auth_permission auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2814 (class 2606 OID 25844)
+-- Name: auth_user_groups auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2817 (class 2606 OID 25888)
+-- Name: auth_user_groups auth_user_groups_user_id_group_id_94350c0c_uniq; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_group_id_94350c0c_uniq UNIQUE (user_id, group_id);
+
+
+--
+-- TOC entry 2808 (class 2606 OID 25834)
+-- Name: auth_user auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.auth_user
+    ADD CONSTRAINT auth_user_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2820 (class 2606 OID 25852)
+-- Name: auth_user_user_permissions auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2823 (class 2606 OID 25902)
+-- Name: auth_user_user_permissions auth_user_user_permissions_user_id_permission_id_14a6b632_uniq; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_permission_id_14a6b632_uniq UNIQUE (user_id, permission_id);
+
+
+--
+-- TOC entry 2811 (class 2606 OID 25930)
+-- Name: auth_user auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.auth_user
+    ADD CONSTRAINT auth_user_username_key UNIQUE (username);
+
+
+--
+-- TOC entry 2826 (class 2606 OID 25916)
+-- Name: django_admin_log django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2788 (class 2606 OID 25800)
+-- Name: django_content_type django_content_type_app_label_model_76bd3d3b_uniq; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.django_content_type
+    ADD CONSTRAINT django_content_type_app_label_model_76bd3d3b_uniq UNIQUE (app_label, model);
+
+
+--
+-- TOC entry 2790 (class 2606 OID 25798)
+-- Name: django_content_type django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2786 (class 2606 OID 25790)
+-- Name: django_migrations django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.django_migrations
+    ADD CONSTRAINT django_migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2830 (class 2606 OID 25942)
+-- Name: django_session django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.django_session
+    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- TOC entry 2840 (class 2606 OID 25983)
+-- Name: docs_doctype docs_doctype_pkey; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.docs_doctype
+    ADD CONSTRAINT docs_doctype_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2844 (class 2606 OID 25991)
+-- Name: docs_document docs_document_pkey; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.docs_document
+    ADD CONSTRAINT docs_document_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2848 (class 2606 OID 25999)
+-- Name: docs_productsindoc docs_productsindoc_pkey; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.docs_productsindoc
+    ADD CONSTRAINT docs_productsindoc_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2833 (class 2606 OID 25952)
+-- Name: products_measure products_measure_pkey; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.products_measure
+    ADD CONSTRAINT products_measure_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2836 (class 2606 OID 25960)
+-- Name: products_product products_product_pkey; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.products_product
+    ADD CONSTRAINT products_product_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2838 (class 2606 OID 25975)
+-- Name: shops_shop shops_shop_pkey; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.shops_shop
+    ADD CONSTRAINT shops_shop_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2851 (class 2606 OID 26031)
+-- Name: users_person users_person_pkey; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.users_person
+    ADD CONSTRAINT users_person_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2853 (class 2606 OID 26164)
+-- Name: users_person users_person_user_id_af9ab8f1_uniq; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.users_person
+    ADD CONSTRAINT users_person_user_id_af9ab8f1_uniq UNIQUE (user_id);
+
+
+--
+-- TOC entry 2796 (class 1259 OID 25861)
+-- Name: auth_group_name_a6ea08ec_like; Type: INDEX; Schema: public; Owner: django
+--
+
+CREATE INDEX auth_group_name_a6ea08ec_like ON public.auth_group USING btree (name varchar_pattern_ops);
+
+
+--
+-- TOC entry 2801 (class 1259 OID 25874)
+-- Name: auth_group_permissions_group_id_b120cbf9; Type: INDEX; Schema: public; Owner: django
+--
+
+CREATE INDEX auth_group_permissions_group_id_b120cbf9 ON public.auth_group_permissions USING btree (group_id);
+
+
+--
+-- TOC entry 2804 (class 1259 OID 25875)
+-- Name: auth_group_permissions_permission_id_84c5c92e; Type: INDEX; Schema: public; Owner: django
+--
+
+CREATE INDEX auth_group_permissions_permission_id_84c5c92e ON public.auth_group_permissions USING btree (permission_id);
+
+
+--
+-- TOC entry 2791 (class 1259 OID 25860)
+-- Name: auth_permission_content_type_id_2f476e4b; Type: INDEX; Schema: public; Owner: django
+--
+
+CREATE INDEX auth_permission_content_type_id_2f476e4b ON public.auth_permission USING btree (content_type_id);
+
+
+--
+-- TOC entry 2812 (class 1259 OID 25890)
+-- Name: auth_user_groups_group_id_97559544; Type: INDEX; Schema: public; Owner: django
+--
+
+CREATE INDEX auth_user_groups_group_id_97559544 ON public.auth_user_groups USING btree (group_id);
+
+
+--
+-- TOC entry 2815 (class 1259 OID 25889)
+-- Name: auth_user_groups_user_id_6a12ed8b; Type: INDEX; Schema: public; Owner: django
+--
+
+CREATE INDEX auth_user_groups_user_id_6a12ed8b ON public.auth_user_groups USING btree (user_id);
+
+
+--
+-- TOC entry 2818 (class 1259 OID 25904)
+-- Name: auth_user_user_permissions_permission_id_1fbb5f2c; Type: INDEX; Schema: public; Owner: django
+--
+
+CREATE INDEX auth_user_user_permissions_permission_id_1fbb5f2c ON public.auth_user_user_permissions USING btree (permission_id);
+
+
+--
+-- TOC entry 2821 (class 1259 OID 25903)
+-- Name: auth_user_user_permissions_user_id_a95ead1b; Type: INDEX; Schema: public; Owner: django
+--
+
+CREATE INDEX auth_user_user_permissions_user_id_a95ead1b ON public.auth_user_user_permissions USING btree (user_id);
+
+
+--
+-- TOC entry 2809 (class 1259 OID 25931)
+-- Name: auth_user_username_6821ab7c_like; Type: INDEX; Schema: public; Owner: django
+--
+
+CREATE INDEX auth_user_username_6821ab7c_like ON public.auth_user USING btree (username varchar_pattern_ops);
+
+
+--
+-- TOC entry 2824 (class 1259 OID 25927)
+-- Name: django_admin_log_content_type_id_c4bce8eb; Type: INDEX; Schema: public; Owner: django
+--
+
+CREATE INDEX django_admin_log_content_type_id_c4bce8eb ON public.django_admin_log USING btree (content_type_id);
+
+
+--
+-- TOC entry 2827 (class 1259 OID 25928)
+-- Name: django_admin_log_user_id_c564eba6; Type: INDEX; Schema: public; Owner: django
+--
+
+CREATE INDEX django_admin_log_user_id_c564eba6 ON public.django_admin_log USING btree (user_id);
+
+
+--
+-- TOC entry 2828 (class 1259 OID 25944)
+-- Name: django_session_expire_date_a5c62663; Type: INDEX; Schema: public; Owner: django
+--
+
+CREATE INDEX django_session_expire_date_a5c62663 ON public.django_session USING btree (expire_date);
+
+
+--
+-- TOC entry 2831 (class 1259 OID 25943)
+-- Name: django_session_session_key_c0390e0f_like; Type: INDEX; Schema: public; Owner: django
+--
+
+CREATE INDEX django_session_session_key_c0390e0f_like ON public.django_session USING btree (session_key varchar_pattern_ops);
+
+
+--
+-- TOC entry 2841 (class 1259 OID 26010)
+-- Name: docs_document_doc_type_id_63b906d8; Type: INDEX; Schema: public; Owner: django
+--
+
+CREATE INDEX docs_document_doc_type_id_63b906d8 ON public.docs_document USING btree (doc_type_id);
+
+
+--
+-- TOC entry 2842 (class 1259 OID 26152)
+-- Name: docs_document_person_id_0ea0f921; Type: INDEX; Schema: public; Owner: django
+--
+
+CREATE INDEX docs_document_person_id_0ea0f921 ON public.docs_document USING btree (person_id);
+
+
+--
+-- TOC entry 2845 (class 1259 OID 26011)
+-- Name: docs_document_shop_id_7f7d0451; Type: INDEX; Schema: public; Owner: django
+--
+
+CREATE INDEX docs_document_shop_id_7f7d0451 ON public.docs_document USING btree (shop_id);
+
+
+--
+-- TOC entry 2846 (class 1259 OID 26022)
+-- Name: docs_productsindoc_document_id_a76d55de; Type: INDEX; Schema: public; Owner: django
+--
+
+CREATE INDEX docs_productsindoc_document_id_a76d55de ON public.docs_productsindoc USING btree (document_id);
+
+
+--
+-- TOC entry 2849 (class 1259 OID 26023)
+-- Name: docs_productsindoc_product_id_d9703d19; Type: INDEX; Schema: public; Owner: django
+--
+
+CREATE INDEX docs_productsindoc_product_id_d9703d19 ON public.docs_productsindoc USING btree (product_id);
+
+
+--
+-- TOC entry 2834 (class 1259 OID 25966)
+-- Name: products_product_measure_id_59415d72; Type: INDEX; Schema: public; Owner: django
+--
+
+CREATE INDEX products_product_measure_id_59415d72 ON public.products_product USING btree (measure_id);
+
+
+--
+-- TOC entry 2856 (class 2606 OID 25867)
+-- Name: auth_group_permissions auth_group_permissio_permission_id_84c5c92e_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissio_permission_id_84c5c92e_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES public.auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2855 (class 2606 OID 25862)
+-- Name: auth_group_permissions auth_group_permissions_group_id_b120cbf9_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_b120cbf9_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES public.auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2854 (class 2606 OID 25853)
+-- Name: auth_permission auth_permission_content_type_id_2f476e4b_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_2f476e4b_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2858 (class 2606 OID 25882)
+-- Name: auth_user_groups auth_user_groups_group_id_97559544_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_group_id_97559544_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES public.auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2857 (class 2606 OID 25877)
+-- Name: auth_user_groups auth_user_groups_user_id_6a12ed8b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_6a12ed8b_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2860 (class 2606 OID 25896)
+-- Name: auth_user_user_permissions auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES public.auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2859 (class 2606 OID 25891)
+-- Name: auth_user_user_permissions auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2861 (class 2606 OID 25917)
+-- Name: django_admin_log django_admin_log_content_type_id_c4bce8eb_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_content_type_id_c4bce8eb_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2862 (class 2606 OID 25922)
+-- Name: django_admin_log django_admin_log_user_id_c564eba6_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_user_id_c564eba6_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2864 (class 2606 OID 26000)
+-- Name: docs_document docs_document_doc_type_id_63b906d8_fk_docs_doctype_id; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.docs_document
+    ADD CONSTRAINT docs_document_doc_type_id_63b906d8_fk_docs_doctype_id FOREIGN KEY (doc_type_id) REFERENCES public.docs_doctype(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2866 (class 2606 OID 26158)
+-- Name: docs_document docs_document_person_id_0ea0f921_fk_users_person_id; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.docs_document
+    ADD CONSTRAINT docs_document_person_id_0ea0f921_fk_users_person_id FOREIGN KEY (person_id) REFERENCES public.users_person(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2865 (class 2606 OID 26005)
+-- Name: docs_document docs_document_shop_id_7f7d0451_fk_shops_shop_id; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.docs_document
+    ADD CONSTRAINT docs_document_shop_id_7f7d0451_fk_shops_shop_id FOREIGN KEY (shop_id) REFERENCES public.shops_shop(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2867 (class 2606 OID 26012)
+-- Name: docs_productsindoc docs_productsindoc_document_id_a76d55de_fk_docs_document_id; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.docs_productsindoc
+    ADD CONSTRAINT docs_productsindoc_document_id_a76d55de_fk_docs_document_id FOREIGN KEY (document_id) REFERENCES public.docs_document(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2868 (class 2606 OID 26017)
+-- Name: docs_productsindoc docs_productsindoc_product_id_d9703d19_fk_products_product_id; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.docs_productsindoc
+    ADD CONSTRAINT docs_productsindoc_product_id_d9703d19_fk_products_product_id FOREIGN KEY (product_id) REFERENCES public.products_product(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2863 (class 2606 OID 25961)
+-- Name: products_product products_product_measure_id_59415d72_fk_products_measure_id; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.products_product
+    ADD CONSTRAINT products_product_measure_id_59415d72_fk_products_measure_id FOREIGN KEY (measure_id) REFERENCES public.products_measure(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2869 (class 2606 OID 26165)
+-- Name: users_person users_person_user_id_af9ab8f1_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY public.users_person
+    ADD CONSTRAINT users_person_user_id_af9ab8f1_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+-- Completed on 2018-07-29 17:20:51
+
+--
+-- PostgreSQL database dump complete
+--
+
