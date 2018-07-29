@@ -1,8 +1,6 @@
-# Project Title
+## Необходимое ПО:
 
-One Paragraph of project description goes here
-
-## Getting Started
+*[PostgreSQL 10](https://www.postgresql.org/download/windows/) - СУБД
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
