@@ -11,7 +11,7 @@
 Пример:
 
 ```
-C:\Program Files\PostgreSQL\10\bin>psql.exe --host "localhost" --port "5432" -d Litebox -U django -f "D:\\Litebox.sql"
+psql.exe --host "localhost" --port "5432" -d Litebox -U django -f "D:\\Litebox.sql"
 ```
 В качестве владельца указан пользователь django.
 
