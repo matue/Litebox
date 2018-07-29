@@ -17,6 +17,16 @@ psql.exe --host "localhost" --port "5432" -d Litebox -U django -f "D:\\Litebox.d
 ```
 В качестве владельца указан пользователь django.
 
+### Установка дополнительных библиотек:
+
+Следующие библиотеки должны присутствовать в PATH.
+Если их нет то их нужно установить:
+
+```
+pip install django
+pip install djangorestframework
+pip install psycopg2
+```
 ### Запуск сервера:
 
 Запуск производится командой:
