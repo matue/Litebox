@@ -35,8 +35,11 @@ pip install psycopg2
 manage.py runserver
 ```
 ### Логины - пароли:
+
+```
 admin - ABC123ABC123
 viktor - safronov
 semen - safronov
+```
 
 
