@@ -4,6 +4,10 @@ from .models import *
 from .serializers import *
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework import generics
+from rest_framework.mixins import DestroyModelMixin
 
 
 @login_required
@@ -24,10 +28,11 @@ def ProductSearchList(request):
 @login_required
 @csrf_exempt
 def create_product(request):
-    if request.method == 'POST':
-        data = request.POST
-        serializer = ProductSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data, status=201)
-        return JsonResponse(serializer.errors, status=400)
+    data = request.POST
+    serializer = ProductSerializer(data=data)
+    if serializer.is_valid():
+        serializer.save()
+
+
+
+
