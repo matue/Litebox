@@ -6,13 +6,13 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
 
-# @login_required
+@login_required
 def ShopList(request):
     queryset = Shop.objects.all()
     return render(request, 'shop_list.html', {'object_list': queryset})
 
 
-# @login_required
+@login_required
 def ShopSearchList(request):
     search_value = request.POST
     shop_name = search_value.get('shop_name')
@@ -20,7 +20,7 @@ def ShopSearchList(request):
     return render(request, 'shop_search_results.html', {'object_list': queryset})
 
 
-# @login_required
+@login_required
 @csrf_exempt
 def create_shop(request):
     if request.method == 'POST':

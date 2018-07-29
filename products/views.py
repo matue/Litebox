@@ -6,14 +6,14 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
 
-# @login_required
+@login_required
 def ProductList(request):
     queryset = Product.objects.all()
     measures = Measure.objects.all()
     return render(request, 'product_list.html', {'object_list': queryset,
                                                  'measures': measures})
 
-# @login_required
+@login_required
 def ProductSearchList(request):
     search_value = request.POST
     product_name = search_value.get('product_name')
@@ -21,6 +21,7 @@ def ProductSearchList(request):
     return render(request, 'product_search_results.html', {'object_list': queryset})
 
 
+@login_required
 @csrf_exempt
 def create_product(request):
     if request.method == 'POST':

@@ -8,3 +8,4 @@ from .models import *
 
 
 admin.site.register(Person)
+# admin.site.register(Person, PersonAdmin)

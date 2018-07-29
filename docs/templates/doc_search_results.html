@@ -1,5 +1,12 @@
 {% extends "doc_list.html" %}
 {% block title %}<title>Результаты поиска</title>{% endblock %}
-  <span class="navbar-brand mb-0 h1">{% block navhead %}Документов: {% endblock %}{{ object_list.len }}</span>
+  <span class="navbar-brand mb-0 h1">{% block navhead %}{% endblock %}</span>
+{% block search_form %}{% endblock %}
+{% block counter %}
+    {% if forloop.last %}
+        <span class="navbar-brand mb-0 h1">   Документов: {{ forloop.counter }} </span>
+    {% endif %}
+{% endblock %}
+
 {% block createform %}
 {% endblock %}

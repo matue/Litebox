@@ -50,6 +50,7 @@
   </thead>
   <tbody>
     {% for o in object_list %}
+        {% block counter %} {% endblock %}
         <tr>
             <th><a href = "/docs/{{ o.id }}">{{ o.id }}</a></th>
             <td>{{ o.date }}</td>
@@ -60,7 +61,6 @@
             <td>{{ o.updated }}</td>
         </tr>
     {% endfor %}
-
     {% block createform %}
  <tr>
         <td></td>

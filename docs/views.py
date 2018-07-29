@@ -16,10 +16,11 @@ def DocList(request):
     shops = Shop.objects.all()
     doctypes = DocType.objects.all()
     persons = Person.objects.all()
+    count=0
     return render(request, 'doc_list.html', {'object_list': queryset,
                                                   'shops': shops,
                                                   'doctypes': doctypes,
-                                                  'persons': persons})
+                                                  'persons': persons, 'count': count})
 
 
 @login_required
@@ -33,18 +34,8 @@ def DocSearchList(request):
     shop_id = filter_value.get('shop_name')
     begin_date = filter_value.get('begin_date')
     end_date = filter_value.get('end_date')
-    queryset = Document.objects.raw("SELECT * "
-                                    "FROM DOCS_DOCUMENT "
-                                    "WHERE DOC_TYPE_ID = %s "
-                                    "AND PERSON_ID = %s "
-                                    "AND SHOP_ID = %s "
-                                    "AND DATE BETWEEN TO_DATE(%s,'YYYY-MM-DD') "
-                                    "AND TO_DATE(%s,'YYYY-MM-DD')",
-                                    [doc_type_id,
-                                     person_id,
-                                     shop_id,
-                                     begin_date,
-                                     end_date])
+    query = "SELECT * FROM DOCS_DOCUMENT WHERE DOC_TYPE_ID = %s AND PERSON_ID = %s AND SHOP_ID = %s AND DATE BETWEEN TO_DATE(%s,'YYYY-MM-DD') AND TO_DATE(%s,'YYYY-MM-DD')"
+    queryset = Document.objects.raw(query, [doc_type_id, person_id, shop_id, begin_date, end_date])
     return render(request, 'doc_search_results.html', {'object_list': queryset,
                                                        'shops': shops,
                                                        'doctypes': doctypes,
