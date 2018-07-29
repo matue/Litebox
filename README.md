@@ -15,6 +15,13 @@ psql.exe --host "localhost" --port "5432" -d Litebox -U django -f "D:\\Litebox.s
 ```
 В качестве владельца указан пользователь django.
 
+### Запуск сервера:
+
+Запуск производится командой:
+
+```
+manage.py runserver
+```
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
