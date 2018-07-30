@@ -2,8 +2,13 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import *
 from .serializers import *
+from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from docs.views import add_string
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework import generics
+from rest_framework.mixins import DestroyModelMixin
+
 
 @login_required
 def ProductList(request):
@@ -20,9 +25,14 @@ def ProductSearchList(request):
     return render(request, 'product_search_results.html', {'object_list': queryset})
 
 
+@login_required
 @csrf_exempt
 def create_product(request):
-    add_string(request, ProductSerializer)
+    data = request.POST
+    serializer = ProductSerializer(data=data)
+    if serializer.is_valid():
+        serializer.save()
+
 
 
 
