@@ -55,38 +55,34 @@ def Doc(request, id):
 
 @login_required
 @csrf_exempt
-def add_product_to_doc(request):
+def add_string(request, serializer):
     if request.method == 'POST':
         data = request.POST
-        serializer = ProductsInDocSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data, status=201)
-        return JsonResponse(serializer.errors, status=400)
+        s = serializer(data=data)
+        if s.is_valid():
+            s.save()
 
 
-@login_required
+@csrf_exempt
+def add_product_to_doc(request):
+    add_string(request, ProductsInDocSerializer)
+
+
 @csrf_exempt
 def add_doc(request):
-    if request.method == 'POST':
-        data = request.POST
-        serializer = DocSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data, status=201)
-        return JsonResponse(serializer.errors, status=400)
+    add_string(request, DocSerializer)
 
 
-class docs_api_test(APIView):
-
-    def get(self, request, format=None):
-        docs = Document.objects.all()
-        serializer = DocSerializer(docs, many=True)
-        return Response(serializer.data)
-
-    def post(self, request, format=None):
-        serializer = DocSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+# class docs_api_test(APIView):
+#
+#     def get(self, request, format=None):
+#         docs = Document.objects.all()
+#         serializer = DocSerializer(docs, many=True)
+#         return Response(serializer.data)
+#
+#     def post(self, request, format=None):
+#         serializer = DocSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

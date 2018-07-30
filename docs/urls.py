@@ -7,5 +7,5 @@ path('docs/', DocList),
     path('docs/addproduct', add_product_to_doc),
     path('docs/adddoc', add_doc),
     path('docs/search_results', DocSearchList),
-    path('docs/api', docs_api_test.as_view()),
+    # path('docs/api', docs_api_test.as_view()),
 ]
