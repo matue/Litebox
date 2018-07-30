@@ -53,28 +53,31 @@ def Doc(request, id):
                                              'doc_id': id})
 
 
+
 @login_required
+@csrf_exempt
+def add_string(request, serializer):
+    global r_data
+    global r_errors
+    if request.method == 'POST':
+        data = request.POST
+        s = serializer(data=data)
+        if s.is_valid():
+            s.save()
+            r_data = JsonResponse(s.data, status=201)
+
+
 @csrf_exempt
 def add_product_to_doc(request):
-    if request.method == 'POST':
-        data = request.POST
-        serializer = ProductsInDocSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data, status=201)
-        return JsonResponse(serializer.errors, status=400)
+        add_string(request, ProductsInDocSerializer)
+        return r_data
 
 
-@login_required
 @csrf_exempt
 def add_doc(request):
-    if request.method == 'POST':
-        data = request.POST
-        serializer = DocSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data, status=201)
-        return JsonResponse(serializer.errors, status=400)
+    add_string(request, DocSerializer)
+    return r_data
+
 
 
 class docs_api_test(APIView):

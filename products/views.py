@@ -2,12 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import *
 from .serializers import *
-from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from rest_framework import generics
-from rest_framework.mixins import DestroyModelMixin
 
 
 @login_required
