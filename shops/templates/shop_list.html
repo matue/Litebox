@@ -3,7 +3,7 @@
 {% block content %}
 <nav class="navbar navbar-light bg-white">
   <span class="navbar-brand mb-0 h1">{% block navhead %}Магазинов: {% endblock %}{{ object_list.count }}</span>
-        <form class="form-inline my-2 my-lg-0" action ="/shops/search_results" method="post"> {% csrf_token %}
+        <form class="form-inline my-2 my-lg-0" action ="{% url 'search_result' %}" method="post"> {% csrf_token %}
             <input class="form-control mr-sm-2" type="text" aria-label="Поиск" name="shop_name" placeholder="Наименование">
             <button class="btn btn-success" type="submit">Поиск</button>
         </form>
@@ -42,7 +42,7 @@
     $(document).ready(function() {
         $("#create").click(function()	{
             var shop_name = $("#shop_name").val()
-            $.post( "/shops/create",  {"shop_name": shop_name})
+            $.post( "{% url 'create_shop' %}",  {"shop_name": shop_name})
             location.reload();
         })
     })

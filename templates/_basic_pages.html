@@ -4,13 +4,13 @@
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="/products/">Справочник товаров</a>
+            <a class="nav-link" href="{% url 'product_list' %}">Справочник товаров</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/shops/">Справочник магазинов</a>
+            <a class="nav-link" href="{% url 'shop_list' %}">Справочник магазинов</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/docs/">Работа с документами </a>
+            <a class="nav-link" href="{% url 'doc_list' %}">Работа с документами </a>
           </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">

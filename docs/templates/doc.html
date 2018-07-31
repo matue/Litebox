@@ -48,7 +48,7 @@ $(document).ready(function() {
     $("#create").click(function()	{
         var product_id = $("#product_id").val()
         var amount = $("#amount").val()
-        $.post( "/docs/addproduct",  {"product": product_id, "amount": amount, "document": "{{ doc_id }}" })
+        $.post( "{% url 'add_product' %}",  {"product": product_id, "amount": amount, "document": "{{ doc_id }}" })
         location.reload();
     })
 })

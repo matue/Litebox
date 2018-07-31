@@ -4,7 +4,7 @@
 <nav class="navbar navbar-light bg-white">
   <span class="navbar-brand mb-0 h1">{% block navhead %}Документов: {% endblock %}{{ object_list.count }}</span>
 {% block search_form %}
-        <form class="form-row col-md-9" action ="/docs/search_results" method="post"> {% csrf_token %}
+        <form class="form-row col-md-9" action ={% url  'doc_search' %} method="post"> {% csrf_token %}
             <div class="col">
             <select class="form-control" name="person_id">
                 {% for p in persons %}
@@ -87,7 +87,7 @@ $(document).ready(function() {
         var date = $("#date").val()
         var shop = $("#shop_id").val()
         var doctype = $("#doctype_id").val()
-        $.post( "/docs/adddoc",  {"date": date, "shop": shop, "doc_type": doctype, "person": {{ user.person.id }} })
+        $.post( "{% url 'add_doc' %}",  {"date": date, "shop": shop, "doc_type": doctype, "person": {{ user.person.id }} })
         location.reload();
     })
 })
