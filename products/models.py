@@ -1,15 +1,8 @@
 from django.db import models
+from model_utils.models import TimeStampedModel  # django-model-utils package
 
 
-class CommonModel(models.Model):
-    created = models.DateTimeField(auto_now_add=True, auto_now=False)
-    updated = models.DateTimeField(auto_now_add=False, auto_now=True)
-
-    class Meta:
-        abstract = True
-
-
-class Measure(CommonModel):
+class Measure(TimeStampedModel):
     measure_name = models.CharField(max_length=10, blank=False)
 
     def __str__(self):
@@ -20,7 +13,7 @@ class Measure(CommonModel):
         verbose_name_plural = 'Единицы измерения'
 
 
-class Product(CommonModel):
+class Product(TimeStampedModel):
     product_name = models.CharField(max_length=100, blank=False)
     measure = models.ForeignKey(Measure, on_delete=models.CASCADE, default='1')
     barcode = models.CharField(max_length=20, blank=False)
@@ -32,5 +25,4 @@ class Product(CommonModel):
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
         ordering = ('product_name', 'barcode')  # сортировка объектов по имени
-
 

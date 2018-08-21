@@ -1,11 +1,12 @@
 from django.db import models
-from products.models import CommonModel, Product
+from products.models import Product
 from shops.models import Shop
 from users.models import Person
 from django.contrib.auth.models import User
+from model_utils.models import TimeStampedModel
 
 
-class DocType(CommonModel):
+class DocType(TimeStampedModel):
     doc_type_name = models.CharField(max_length=30)
 
     def __str__(self):
@@ -16,7 +17,7 @@ class DocType(CommonModel):
         verbose_name_plural = 'Типы документов'
 
 
-class Document(CommonModel):
+class Document(TimeStampedModel):
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE, default=None)
     doc_type = models.ForeignKey(DocType, on_delete=models.CASCADE, default=None)
     person = models.ForeignKey(Person, on_delete=models.CASCADE, blank=True, null=True)
@@ -30,7 +31,7 @@ class Document(CommonModel):
         verbose_name_plural = 'Документы'
 
 
-class ProductsInDoc(CommonModel):  # промежуточная модель, связывает продукты и документы для указания количества продуктов в документе
+class ProductsInDoc(TimeStampedModel):  # промежуточная модель, связывает продукты и документы для указания количества продуктов в документе
     document = models.ForeignKey(Document, on_delete=models.CASCADE, default=None)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     amount = models.IntegerField(default=1, null=False, blank=False)

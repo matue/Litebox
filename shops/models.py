@@ -1,8 +1,8 @@
 from django.db import models
-from products.models import CommonModel
+from model_utils.models import TimeStampedModel
 
 
-class Shop(CommonModel):
+class Shop(TimeStampedModel):
     shop_name = models.CharField(max_length=100, blank=False)
 
     def __str__(self):
